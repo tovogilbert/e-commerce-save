@@ -1,5 +1,5 @@
 import { ProductFeature } from "./ProductFeature";
-import { Marque } from "./Brand";
+import { Brand } from "./Brand";
 
 export class Product{
     constructor(
@@ -7,9 +7,9 @@ export class Product{
         public name: string,
         public description: string,
         public priceExclTax: number,
-        public brand: Marque,
+        public brand: Brand,
         public stockQty: number,
         public image: string,
         public features: ProductFeature[] = []
     ){}
-}
+} 
