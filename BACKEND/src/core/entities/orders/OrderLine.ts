@@ -6,6 +6,6 @@ export class OrderLine {
     public product: Product,
     public quantity: number,
     public unitPrice: number
-    
+  
   ) {}
 }
