@@ -4,63 +4,62 @@
 module.exports = {
   async up (queryInterface, Sequelize) {
     await queryInterface.createTable('clients', {
-      id: {
+      "id": {
         type: Sequelize.UUID,
         allowNull: false,
         primaryKey: true,
         defaultValue: Sequelize.literal('uuid_generate_v4()'),
       },
-      type: {
+      "clientType": {
         type: Sequelize.ENUM('particulier', 'entreprise'),
         allowNull: false,
       },
 
       // Champs communs
-      email: {
+      "email": {
         type: Sequelize.STRING,
         allowNull: false,
         unique: true,
       },
-      telephone: {
+      "telephone": {
         type: Sequelize.STRING,
         allowNull: false,
       },
-      adresse: {
+      "adresse": {
         type: Sequelize.STRING,
         allowNull: false,
       },
-
 
       // Champs spécifiques au particulier
-      firstName: {
+      "firstName": {
         type: Sequelize.STRING,
         allowNull: true,
       },
-      lastName: {
+      "lastName": {
         type: Sequelize.STRING,
         allowNull: true,
       },
 
       // Champs spécifiques à l'entreprise
-      companyName: {
+      "companyName": {
         type: Sequelize.STRING,
         allowNull: true,
       },
-      nif: {
+      "nif": {
         type: Sequelize.STRING,
         allowNull: true,
       },
-      stat: {
+      "stat": {
         type: Sequelize.STRING,
         allowNull: true,
       },
 
-      createdAt: {
+      "createdAt": {
         allowNull: false,
         type: Sequelize.DATE,
         defaultValue: Sequelize.literal("CURRENT_TIMESTAMP"),
       },
-      updatedAt: {
+      "updatedAt": {
         allowNull: false,
         type: Sequelize.DATE,
         defaultValue: Sequelize.literal("CURRENT_TIMESTAMP"),
