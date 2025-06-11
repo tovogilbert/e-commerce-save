@@ -24,5 +24,5 @@ export interface IProductRepository {
   findWithFeatures(): Promise<Product[]>;
 
   // Rechercher les produits d’une marque donnée
-  findByBrand(brandId: number): Promise<Product[]>;
+  findByBrand(id: number): Promise<Product[]>;
 }
