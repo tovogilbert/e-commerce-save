@@ -1,14 +1,13 @@
 import { DataTypes, Model } from "sequelize";
 import { sequelize } from "../connection";
-
-interface PaymentModelAttributes {
-  "id": number;
-  "paymentDate": Date;
-  "amount": number;
-  "method": string;
-  "transactionRef": string;
-  "createdAt": Date;
-  "updatedAt": Date;
+export interface PaymentModelAttributes {
+  id?: number; 
+  paymentDate: Date;
+  amount: number;
+  method: string;
+  transactionRef: string;
+  createdAt?: Date; 
+  updatedAt?: Date; 
 }
 
 export class PaymentModel extends Model<PaymentModelAttributes> implements PaymentModelAttributes {

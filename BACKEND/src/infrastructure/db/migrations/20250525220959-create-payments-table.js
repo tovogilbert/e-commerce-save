@@ -10,6 +10,7 @@ module.exports = {
         primaryKey: true,
         autoIncrement: true,
       },
+      
       'paymentDate': {
         type: Sequelize.DATE,
         allowNull: false,
