@@ -69,8 +69,12 @@ const ProductListPage = () => {
   );
 
   const handleDelete = (id) => {
+    // Implémentez la logique de suppression ici
     console.log('Supprimer le produit', id);
   };
+
+  // if (loading) return <div className="text-center">Chargement en cours...</div>;
+  // if (error) return <div className="alert alert-danger">Erreur: {error}</div>;
 
   return (
     <div className="container mt-4 px-20 py-20 bg-white text-gray-600">
@@ -80,8 +84,15 @@ const ProductListPage = () => {
         <button to="/products/new" className="flex content-between items-center bg-blue-400 px-3 cursor-pointer py-1 shadow-lg rounded-md font-medium text-amber-50">
          <FaPlus className='mr-2 font-light'/> Add new
         </button>
-      </div>      
-      <Table  title={tableTitles} keys={tableKeys} rows={formattedProducts} onChangeSearch={(e) => setSearchTerm(e.target.value)} columnAction={columnAction} />
+      </div>
+      
+      <Table
+        title={tableTitles}
+        keys={tableKeys}
+        rows={formattedProducts}
+        onChangeSearch={(e) => setSearchTerm(e.target.value)}
+        columnAction={columnAction}
+      />
     </div>
   );
 };

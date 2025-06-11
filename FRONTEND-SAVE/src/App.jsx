@@ -1,8 +1,13 @@
 import React from "react";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Index from "./Index";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import "./assets/styles/Layout.css";
 import Home from "./pages/home/Home";
 import Product from "./pages/product/Product";
+import ProductListPage from "./pages/admin/product/List";
+import CartPage from "./pages/cart/CartPage";
+import CreateProductForm from "./pages/admin/product/form/index";
+
 
 function App() {
   return (
@@ -10,7 +15,9 @@ function App() {
       <Routes>
         <Route path="/" element={<Index />}>
           <Route index element={<Home />} />
-          <Route path="/product" element={<Product />} />
+          <Route path="/product/:id" element={<Product />} />
+          <Route path="/product/List" element={<ProductListPage />} />
+          <Route path="/cart" element={<CartPage />} />
         </Route>
       </Routes>
     </BrowserRouter>
