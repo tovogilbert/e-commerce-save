@@ -6,7 +6,6 @@ import Home from "./pages/home/Home";
 import Product from "./pages/product/Product";
 import ProductListPage from "./pages/admin/product/List";
 import CartPage from "./pages/cart/CartPage";
-import CreateProductForm from "./pages/admin/product/form/index";
 
 
 function App() {
