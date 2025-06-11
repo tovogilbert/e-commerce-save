@@ -1,0 +1,38 @@
+### Dependencies ###
+node_modules/
+dist/            
+
+### Environnement ###
+.env.local
+.env.*.local
+
+### IDE/Editors ###
+.vscode/
+.idea/
+*.swp
+*.swo
+*.log
+
+### Système ###
+.DS_Store
+Thumbs.db
+
+### Tests/Coverage ###
+coverage/
+*.lcov
+
+### Debug ###
+npm-debug.log*
+
+### TypeScript ###
+*.tsbuildinfo
+
+### Sécurité ###
+secrets/
+*.pem
+*.cert
+*.key
+
+### Autres ###
+dump.rdb
+*.sqlite
