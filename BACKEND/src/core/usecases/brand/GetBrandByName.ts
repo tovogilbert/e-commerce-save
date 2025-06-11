@@ -11,7 +11,6 @@ export class GetBrandByName {
     if (!brands || brands.length === 0) {
       throw new BusinessError("Marque introuvable.");
     }
-    // Si plusieurs marques ont le même nom, on retourne la première trouvée
     return brands[0];
   }
 }

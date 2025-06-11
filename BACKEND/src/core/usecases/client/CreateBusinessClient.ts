@@ -15,10 +15,7 @@ export class CreateBusinessClient {
     "adresse": string;
   }): Promise<BusinessClient> {
     try {
-      // Validation des données d'entrée
       ClientValidator.validateBusiness(data);
-
-      // Vérification de l'unicité de l'email
       const existingClient = await this.repo.findByEmail(data.email);
       if (existingClient) {
         throw new BusinessError("L'email est déjà utilisé par un autre client", {

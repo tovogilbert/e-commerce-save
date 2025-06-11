@@ -7,4 +7,4 @@ export class Payment{
         public method: string,
         public transactionRef : string,
     ){}
-}
+}   
