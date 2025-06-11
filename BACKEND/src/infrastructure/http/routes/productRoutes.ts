@@ -1,5 +1,6 @@
 import { Router } from "express";
 import { createProduct, getProduct, getAllProducts, getProductsByBrand, getProductsWithFeatures, searchProducts, updateProduct, deleteProduct } from "../controllers/ProductController";
+import { upload } from '../../middleware/upload';
 
 const router = Router();
 
@@ -104,7 +105,10 @@ const router = Router();
  *         description: Marque ou caractéristique non trouvée
  */
 
-router.post("/", (req, res, next) => {
+// router.post("/", (req, res, next) => {
+//   createProduct(req, res).catch(next);
+// });
+router.post('/', upload.single('image'), (req, res, next) => {
   createProduct(req, res).catch(next);
 });
 
