@@ -11,15 +11,56 @@ import { UpdateProduct } from "../../../core/usecases/product/UpdateProduct";
 import { DeleteProduct } from "../../../core/usecases/product/DeleteProduct";
 import { ProductMapper } from "../mappers/ProductMapper";
 import { BusinessError } from "../../../shared/errors/BusinessError";
-import { BrandRepository } from "../../repositories/BrandRepository";
-import { FeatureRepository } from "../../repositories/FeatureRepository";
+import { BrandRepository } from "../../repositories/BrandRepository";import { FeatureRepository } from "../../repositories/FeatureRepository";
+import cloudinary from '../../http/config/cloudinary'; // chemin selon ton projet
+
+
 
 const productRepo = new ProductRepository();
 
- export const createProduct = async (req: Request, res: Response) => {
+  export const createProduct = async (req: Request, res: Response) => {
   try {
-    const dto: CreateProductDTO = req.body;
-    
+    if (!req.file) {
+      return res.status(400).json({ error: "Aucun fichier image reçu" });
+    }
+
+   console.log("Fichier reçu :", req.file);
+   console.log("Corps de la requête :", req.body);
+
+    const brandId = parseInt(req.body.brandId);
+    if (isNaN(brandId)) {
+      return res.status(400).json({ error: "L'ID de la marque doit être un nombre valide" });
+    }
+
+    let featureIds: number[] = [];
+
+    if (typeof req.body.features === 'string') {
+      try {
+        const parsed = JSON.parse(req.body.features);
+        if (Array.isArray(parsed)) {
+          featureIds = parsed.map(Number);
+        } else {
+          featureIds = [parseInt(req.body.features)];
+        }
+      } catch {
+        if (!isNaN(parseInt(req.body.features))) {
+          featureIds = [parseInt(req.body.features)];
+        } else {
+          return res.status(400).json({ error: "Format des features invalide" });
+        }
+      }
+    }
+
+    const dto: CreateProductDTO = {
+      name: req.body.name,
+      description: req.body.description,
+      priceExclTax: parseFloat(req.body.priceExclTax),
+      brandId: brandId,
+      stockQty: parseInt(req.body.stockQty),
+      featureIds: featureIds,
+      image: req.file.path,
+    };
+
     const brandRepo = new BrandRepository();
     const featureRepo = new FeatureRepository();
     const productRepo = new ProductRepository();
@@ -29,15 +70,17 @@ const productRepo = new ProductRepository();
 
     return res.status(201).json(ProductMapper.toDTO(product));
   } catch (err: any) {
-    const status = err instanceof BusinessError && 
-                  (err.errorCode === 'BRAND_NOT_FOUND' || err.errorCode === 'FEATURE_NOT_FOUND') 
-                  ? 404 : 400;
-    return res.status(status).json({ 
+    const status = err instanceof BusinessError &&
+      (err.errorCode === 'BRAND_NOT_FOUND' || err.errorCode === 'FEATURE_NOT_FOUND')
+      ? 404 : 400;
+
+    return res.status(status).json({
       error: err.message,
       ...(err instanceof BusinessError && { errorCode: err.errorCode })
     });
   }
 };
+
 
   export const getProduct = async (req: Request, res: Response) => {
     try {
@@ -149,15 +192,37 @@ const productRepo = new ProductRepository();
     }
   };
 
-  export const deleteProduct = async (req: Request, res: Response) => {
-    try {
-      const useCase = new DeleteProduct(productRepo);
-      await useCase.execute(Number(req.params.id));
-      return res.status(204).send();
-    } catch (err: any) {
-      return res.status(404).json({ 
-        error: err.message,
-        ...(err instanceof BusinessError && { errorCode: err.errorCode })
-      });
+ export const deleteProduct = async (req: Request, res: Response) => {
+  try {
+    const id = Number(req.params.id);
+    const product = await productRepo.findById(id);
+
+    if (!product) {
+      return res.status(404).json({ error: "Produit introuvable" });
     }
-  };
+
+    // 🔍 Étape 1 : Récupération du `public_id` depuis l'URL Cloudinary
+    const imageUrl = product.image;
+    const regex = /\/([^/]+)\.(jpg|jpeg|png|webp|svg)$/i;
+    const match = imageUrl.match(regex);
+    
+    if (match) {
+      const publicId = match[1]; // ex: "products/folder/abc123"
+      const folderPath = imageUrl.split('/upload/')[1].split('.')[0]; // ex: "products/folder/abc123"
+      
+      // 🧹 Étape 2 : Suppression de l'image sur Cloudinary
+      await cloudinary.uploader.destroy(folderPath);
+    }
+
+    // 🗑️ Étape 3 : Suppression du produit en base
+    const useCase = new DeleteProduct(productRepo);
+    await useCase.execute(id);
+
+    return res.status(204).send();
+  } catch (err: any) {
+    return res.status(404).json({
+      error: err.message,
+      ...(err instanceof BusinessError && { errorCode: err.errorCode })
+    });
+  }
+};
