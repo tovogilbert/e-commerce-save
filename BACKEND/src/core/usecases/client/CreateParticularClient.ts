@@ -14,10 +14,7 @@ export class CreateParticularClient {
     "adresse": string;
   }): Promise<ParticularClient> {
     try {
-      // Validation des données d'entrée
       ClientValidator.validateParticular(data);
-
-      // Vérification de l'unicité de l'email
       const existingClient = await this.repo.findByEmail(data.email);
       if (existingClient) {
         throw new BusinessError("L'email est déjà utilisé par un autre client", {
