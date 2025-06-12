@@ -18,7 +18,7 @@ Application full-stack avec backend Node.js/TypeScript et frontend React/Vite.
 
 ```bash
 # Clonez le dépôt
-git clone [https://github.com/votre-repo/projet.git](https://github.com/tovogilbert/e-commerce-save.git)
+git clone https://github.com/tovogilbert/e-commerce-save.git
 cd projet
 
 # Backend
