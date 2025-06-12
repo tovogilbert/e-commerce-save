@@ -6,23 +6,30 @@ import { comparePasswords } from "../../../shared/utils/auth";
 export class LoginUser {
   constructor(private readonly userRepository: IUserRepository) {}
 
-  async execute(credentials: { email: string; password: string }): Promise<User> {
+async execute(credentials: { email: string; password: string }): Promise<User> {
     const { email, password } = credentials;
     
-    if (!email || !password) {
-      throw new BusinessError("Email and password are required", {
+    const trimmedEmail = email.trim();
+    const trimmedPassword = password.trim();
+    
+    if (!trimmedEmail || !trimmedPassword) {
+      throw new BusinessError("Email et mot de passe requis", {
         errorCode: "VALIDATION_ERROR"
       });
     }
 
-    const user = await this.userRepository.findByEmail(email);
+    const user = await this.userRepository.findByEmail(trimmedEmail);
     if (!user) {
+      console.log('User not found:', email); 
       throw new BusinessError("Invalid credentials", {
         errorCode: "AUTH_ERROR"
       });
     }
 
+    console.log('Stored hash:', user.password); 
     const isPasswordValid = await comparePasswords(password, user.password);
+    console.log('Password valid:', isPasswordValid);
+
     if (!isPasswordValid) {
       throw new BusinessError("Invalid credentials", {
         errorCode: "AUTH_ERROR"
@@ -30,5 +37,5 @@ export class LoginUser {
     }
 
     return user;
-  }
+}
 }
