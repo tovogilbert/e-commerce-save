@@ -1,23 +1,25 @@
 import { Router } from "express";
 import { createBrand, getBrand, getAllBrands, getBrandByName, updateBrand, deleteBrand, searchBrands } from "../controllers/BrandController";
+import { Request, Response, NextFunction } from 'express';
+
 
 const router = Router();
 
 // === CRÉATION ===
-router.post("/", (req, res, next) => {
+router.post("/", (req: Request, res: Response, next: NextFunction) => {
   createBrand(req, res).catch(next);
 });
 
 // === LECTURE ===
-router.get("/", (req, res, next) => {
+router.get("/", (req: Request, res: Response, next: NextFunction) => {
   getAllBrands(req, res).catch(next);
 });
 
-router.get("/:id", (req, res, next) => {
+router.get("/:id", (req: Request, res: Response, next: NextFunction) => {
   getBrand(req, res).catch(next);
 });
 
-router.get("/by-name", (req, res, next) => {  
+router.get("/by-name", (req: Request, res: Response, next: NextFunction) => {
   getBrandByName(req, res).catch(next);
 });
 
