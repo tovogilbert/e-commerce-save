@@ -1,5 +1,6 @@
 import Service from './service';
-import {  getAllBrands, getBrandByExactName, searchBrands } from '../data/constants/endPoint';
+import { getAllBrands, getBrandByExactName, searchBrands } from '../data/constants/endPoint';
+import Axios from '../data/api/axios';
 
 class BrandService extends Service {
   constructor() {
