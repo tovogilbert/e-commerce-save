@@ -1,7 +1,6 @@
 import swaggerJsdoc from 'swagger-jsdoc';
 import swaggerUi from 'swagger-ui-express';
 import { Express } from 'express';
-declare module 'swagger-jsdoc';
 
 const options: swaggerJsdoc.Options = {
   definition: {
@@ -17,7 +16,7 @@ const options: swaggerJsdoc.Options = {
         description: 'Serveur de développement',
       },
     ],
-    components: {
+    components: { 
       securitySchemes: {
         bearerAuth: {
           type: 'http',
@@ -64,7 +63,7 @@ const options: swaggerJsdoc.Options = {
               type: 'string',
               enum: ['particulier', 'entreprise']
             },
-            email: { type: 'string' },
+            email: { type: 'string', format: 'email' },
             telephone: { type: 'string' },
             adresse: { type: 'string' },
             firstName: { type: 'string' },
@@ -96,6 +95,59 @@ const options: swaggerJsdoc.Options = {
             value: { type: 'string' },
             createdAt: { type: 'string', format: 'date-time' },
             updatedAt: { type: 'string', format: 'date-time' }
+          }
+        },
+        User: {
+          type: 'object',
+          properties: {
+            id: { 
+              type: 'string',
+              format: 'uuid',
+              example: '123e4567-e89b-12d3-a456-426614174000'
+            },
+            name: { 
+              type: 'string',
+              example: 'John Doe'
+            },
+            email: {
+              type: 'string',
+              format: 'email',
+              example: 'john.doe@example.com'
+            },
+            createdAt: {
+              type: 'string',
+              format: 'date-time'
+            },
+            updatedAt: {
+              type: 'string',
+              format: 'date-time'
+            }
+          }
+        },
+        UserWithToken: {
+          allOf: [
+            { $ref: '#/components/schemas/User' },
+            {
+              type: 'object',
+              properties: {
+                token: {
+                  type: 'string',
+                  example: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...'
+                }
+              }
+            }
+          ]
+        },
+        Error: {
+          type: 'object',
+          properties: {
+            error: { type: 'string' },
+            message: { type: 'string' },
+            errorCode: { type: 'string' },
+            details: {
+              type: 'array',
+              items: { type: 'string' }
+            }
           }
         }
       }

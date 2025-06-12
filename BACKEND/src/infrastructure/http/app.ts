@@ -8,6 +8,7 @@ import productRoutes from "./routes/productRoutes";
 import { setupSwagger } from './config/swagger';
 import { setupRelations } from "../db/models/product/Relations";
 import paymentRoutes from "./routes/paymentRoutes";
+import userRoutes from "./routes/userRoutes";
 
 const app = express();
 
@@ -23,7 +24,7 @@ app.use(`${api}/brands`, brandRoutes);
 app.use(`${api}/features`, featureRoutes);
 app.use(`${api}/products`, productRoutes);
 app.use(`${api}/payments`, paymentRoutes);
-
+app.use(`${api}/users`, userRoutes);
 
 // Setup Swagger
 setupSwagger(app);
