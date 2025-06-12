@@ -37,6 +37,7 @@ export class UserController {
   static async loginUser(req: Request, res: Response) {
     try {
       const dto: LoginUserDTO = req.body;
+      console.log('Raw login request:', JSON.stringify(dto)); 
       
       const useCase = new LoginUser(userRepo);
       const user = await useCase.execute(dto);
@@ -45,12 +46,13 @@ export class UserController {
       
       return res.json(UserMapper.toDTOWithToken(user, token));
     } catch (err: any) {
+      console.error('Login error details:', err); 
       return res.status(401).json({ 
         error: err.message,
         ...(err instanceof BusinessError && { errorCode: err.errorCode })
       });
     }
-  }
+}
 
   static async getUser(req: Request, res: Response) {
     try {
@@ -107,8 +109,7 @@ export class UserController {
         id: dto.id,
         name: dto.name,
         email: dto.email,
-        password: dto.password ?? "", // or handle password update logic
-        // Add other fields as required by User entity
+        password: dto.password ?? "", 
       };
 
       const useCase = new UpdateUserUseCase(userRepo);
