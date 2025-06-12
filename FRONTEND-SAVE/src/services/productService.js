@@ -1,4 +1,3 @@
-// src/services/ProductService.js
 import Service from './service';
 import {   getProducts, getProductsByBrand, getProductsWithFeatures, searchProducts } from '../data/constants/endPoint';
 

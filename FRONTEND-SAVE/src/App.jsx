@@ -6,6 +6,7 @@ import Home from "./pages/home/Home";
 import Product from "./pages/product/Product";
 import ProductListPage from "./pages/admin/product/List";
 import CartPage from "./pages/cart/CartPage";
+import CreateProductForm from "./pages/admin/product/form";
 
 
 function App() {
@@ -17,6 +18,7 @@ function App() {
           <Route path="/product/:id" element={<Product />} />
           <Route path="/product/List" element={<ProductListPage />} />
           <Route path="/cart" element={<CartPage />} />
+          <Route path="/products/create" element={<CreateProductForm />} />
         </Route>
       </Routes>
     </BrowserRouter>
