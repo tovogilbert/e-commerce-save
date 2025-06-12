@@ -30,36 +30,6 @@ cd FRONTEND-SAVE
 npm install
 ```
 
-## ⚙ Configuration
-
-### Backend
-Créez un fichier `.env` dans `backend/` :
-
-```env
-PORT=3001
-DB_NAME=votre_db
-DB_USER=votre_user
-DB_PASSWORD=votre_mdp
-DB_HOST=localhost
-DB_PORT=5432
-CLOUDINARY_CLOUD_NAME=votre_cloud
-CLOUDINARY_API_KEY=votre_key
-CLOUDINARY_API_SECRET=votre_secret
-JWT_SECRET=votre_jwt_secret
-```
-
-Puis exécutez les migrations :
-```bash
-npm run migrate
-```
-
-### Frontend
-Créez un fichier `.env` dans `frontend/` :
-
-```env
-VITE_API_BASE_URL=http://localhost:3001
-```
-
 ## ▶ Exécution
 
 | Commande          | Description                          |
