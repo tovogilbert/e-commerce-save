@@ -7,6 +7,7 @@ import { ClientModel } from "../../infrastructure/db/models/ClientModel";
 import { PaymentModel } from "../../infrastructure/db/models/PaymentModel";
 import { ProductModel } from "../../infrastructure/db/models/product/ProductModel";
 import { BusinessError } from "../../shared/errors/BusinessError";
+import { OrderMapper } from "../http/mappers/OrderMapper";
 
 export class OrderRepository implements IOrderRepository {
   async save(order: Order): Promise<Order> {
@@ -79,7 +80,7 @@ export class OrderRepository implements IOrderRepository {
 
   async findById(id: number): Promise<Order | null> {
     const orderModel = await OrderModel.findByPk(id, {
-      include: [OrderMapper
+      include: [
         { model: ClientModel, as: 'client' },
         { model: PaymentModel, as: 'payment' },
         { 
