@@ -8,6 +8,7 @@ import ProductListPage from "./pages/admin/product/List";
 import CartPage from "./pages/cart/CartPage";
 import CreateProductForm from "./pages/admin/product/form";
 import LoginPage from "./pages/admin/auth/list/LoginPage";
+import CheckoutForm from "./pages/admin/order/Form/CheckoutForm";
 
 
 function App() {
@@ -21,6 +22,7 @@ function App() {
           <Route path="/cart" element={<CartPage />} />
           <Route path="/products/create" element={<CreateProductForm />} />
           <Route path="/login" element={<LoginPage />} />
+          <Route path="/order" element={<CheckoutForm />} />
         </Route>
       </Routes>
     </BrowserRouter>
