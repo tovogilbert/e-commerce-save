@@ -1,9 +1,11 @@
+
 import { createContext, useContext, useState } from 'react';
 
 const CartContext = createContext();
 
 export const CartProvider = ({ children }) => {
   const [cartItems, setCartItems] = useState([]);
+  const [checkoutData, setCheckoutData] = useState(null);
 
   const addToCart = (product) => {
     setCartItems(prevItems => {
@@ -43,6 +45,26 @@ export const CartProvider = ({ children }) => {
     (total, item) => total + item.price * item.quantity,
     0
   );
+const prepareCheckout = () => {
+    const shipping = cartItems.length > 0 ? 20.0 : 0;
+    const tax = cartTotal * 0.2;
+    const discount = cartTotal > 100 ? -10.0 : 0;
+    const total = (cartTotal + shipping + tax + discount);
+
+    return {
+      items: cartItems,
+      subtotal: cartTotal,
+      shipping,
+      tax,
+      discount,
+      total,
+      itemCount
+    };
+  };
+
+  const proceedToCheckout = () => {
+    setCheckoutData(prepareCheckout());
+  };
 
   return (
     <CartContext.Provider
@@ -53,6 +75,8 @@ export const CartProvider = ({ children }) => {
         removeFromCart,
         itemCount,
         cartTotal,
+        checkoutData,
+        proceedToCheckout
       }}
     >
       {children}
