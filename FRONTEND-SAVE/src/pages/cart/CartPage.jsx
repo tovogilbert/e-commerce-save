@@ -3,11 +3,11 @@ import { useCart } from "../../contexts/CartContext";
 import { motion } from "framer-motion";
 import TopBar from "../../components/TopBar";
 import { FaArrowRight } from "react-icons/fa";
-
+import { useNavigate } from "react-router-dom"; 
 
 const CartPage = () => {
-  const { cartItems, updateQuantity, removeFromCart, cartTotal, itemCount } = useCart();
-
+  const { cartItems, updateQuantity, removeFromCart, cartTotal, itemCount, proceedToCheckout } = useCart();
+  const navigate = useNavigate();
   const shipping = cartItems.length > 0 ? 20.0 : 0;
   const tax = cartTotal * 0.2;
   const discount = cartTotal > 100 ? -10.0 : 0;
@@ -35,11 +35,7 @@ const CartPage = () => {
                     animate={{ opacity: 1, y: 0 }}
                     className="flex flex-row sm:flex-row gap-x-4 pr-6 pt-4 pb-5 border-b border-gray-200">
                     <div className="w-full h-32 sm:w-40 sm:h-30 bg-gray-100 rounded-lg overflow-hidden">
-                      <img
-                        src={item.image}
-                        alt={item.name}
-                        className="w-full h-full object-cover p-4"
-                      />
+                      <img  src={item.image} alt={item.name} className="w-full h-full object-cover p-4" />
                     </div>
                     <div className="flex-1 flex flex-col">
                       <div className="flex justify-between">
@@ -102,10 +98,7 @@ const CartPage = () => {
                     <span className="text-gray-900">€{total}</span>
                   </div>
                 </div>
-                <motion.button
-                  whileTap={{ scale: 0.98 }}
-                  className="w-full mt-4 sm:mt-6 lg:mt-8 py-2 sm:py-3 flex items-center justify-center lg:py-4 bg-black text-white rounded-lg font-medium hover:bg-gray-800 transition-colors text-sm sm:text-base lg:text-lg"
-                >
+                 <motion.button onClick={() => { proceedToCheckout(); navigate("/order"); }}  whileTap={{ scale: 0.98 }}  className="w-full mt-4 sm:mt-6 lg:mt-8 py-2 sm:py-3 flex items-center justify-center lg:py-4 bg-black text-white rounded-lg font-medium hover:bg-gray-800 transition-colors text-sm sm:text-base lg:text-lg">
                   Checkout <FaArrowRight className="ml-5" />
                 </motion.button>
               </div>
