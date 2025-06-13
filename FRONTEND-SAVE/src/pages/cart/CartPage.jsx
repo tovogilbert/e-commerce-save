@@ -98,7 +98,9 @@ const CartPage = () => {
                     <span className="text-gray-900">€{total}</span>
                   </div>
                 </div>
+
                  <motion.button onClick={() => { proceedToCheckout(); navigate("/order"); }}  whileTap={{ scale: 0.98 }}  className="w-full mt-4 sm:mt-6 lg:mt-8 py-2 sm:py-3 flex items-center justify-center lg:py-4 bg-black text-white rounded-lg font-medium hover:bg-gray-800 transition-colors text-sm sm:text-base lg:text-lg">
+
                   Checkout <FaArrowRight className="ml-5" />
                 </motion.button>
               </div>
