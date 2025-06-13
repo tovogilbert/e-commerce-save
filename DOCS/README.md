@@ -1,7 +1,12 @@
 # DOCUMENTION COMPLETE DU PROJET WEB DEVELOPPEMENT E-COMMERCE CHALLENGE
 
 
-Application full-stack avec backend Node.js/TypeScript et frontend React/Vite.
+**Application complète e-commerce** avec :
+- Backend Node.js/TypeScript (Architecture Hexagonale)
+- Frontend React/Vite (Clean Architecture)
+- PostgreSQL 16
+- Système d'authentification JWT
+- Gestion des rôles (Admin/Client)
 
 ## Déploiement
 
@@ -42,22 +47,66 @@ cd FRONTEND-SAVE
 npm install
 ```
 
+🗃 Initialisation PostgreSQL avec pgAdmin4
+
+```
+CREATE DATABASE "e-commerce"
+    WITH 
+    OWNER = postgres
+    ENCODING = 'UTF8'
+    LC_COLLATE = 'en_US.UTF-8'
+    LC_CTYPE = 'en_US.UTF-8'
+    CONNECTION LIMIT = -1;
+```
+    
+⚙ Configuration
+🔧 Fichier .env (Backend)
+
+DB_NAME=e-commerce
+DB_USER=Votre _nom_utilisateur_dans_posgtresql
+DB_PASSWORD=votre_mot_de_passe
+DB_HOST=localhost
+DB_PORT=5432
+PORT=3002
+JWT_SECRET=votre_secret_secure
+CLOUDINARY_URL=cloudinary://api_key:api_secret@cloud_name
+
+ ### Lancer les migrations
+
+```
+cd BACKEND
+npm run migrate
+
+```
+
+
 ## ▶ Exécution
 
-| Commande          | Description                             |
+| Commande          | Description                             | port 
 |-------------------|-----------------------------------------|
-| `cd backend && npm run dev` | Backend en mode développement |
+| `cd backend && npm run dev` | Backend en mode développement | 3002
 | `cd backend && npm start`   | Backend en production         |
-| `cd frontend && npm run dev` | Frontend en mode dev         |
+| `cd frontend && npm run dev` | Frontend en mode dev         | 5173
 | `cd frontend && npm run preview` | Prévisualisation production |
+
 
 ## Documentation API
 
-Accédez à la documentation Swagger après avoir démarré le backend :
+Accédez à la documentation Swagger complète après avoir démarré le backend :
+
 ```
 http://localhost:3002/api-docs
 ```
 
+Inclut :
+
+Tous les endpoints
+
+Exemples de requêtes
+
+Schémas de données
+
+Authentification
 
 **Backend**:
 ```bash
@@ -70,3 +119,20 @@ npm run migrate    # Exécute les migrations
 npm run build      # Build de production
 npm run lint       # Vérification du code
 ```
+
+
+
+## 🌟 Fonctionnalités
+
+### 🛒 Coté Client
+- Catalogue produits 
+- Panier persistant
+- Passer commande
+- Passer au payment
+- Valider le commande
+- Passer au livraison
+
+### 🔐 Coté Admin
+- CRUD complet produits , commande , client , brand , feature , payment
+- Gestion utilisateurs
+
