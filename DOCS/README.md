@@ -62,14 +62,14 @@ CREATE DATABASE "e-commerce"
 ⚙ Configuration
 🔧 Fichier .env (Backend)
 
-DB_NAME=e-commerce
-DB_USER=Votre _nom_utilisateur_dans_posgtresql
-DB_PASSWORD=votre_mot_de_passe
-DB_HOST=localhost
-DB_PORT=5432
-PORT=3002
-JWT_SECRET=votre_secret_secure
-CLOUDINARY_URL=cloudinary://api_key:api_secret@cloud_name
+- DB_NAME=e-commerce
+- DB_USER=Votre _nom_utilisateur_dans_posgtresql
+- DB_PASSWORD=votre_mot_de_passe
+- DB_HOST=localhost
+- DB_PORT=5432
+- PORT=3002
+- JWT_SECRET=votre_secret_secure
+- CLOUDINARY_URL=cloudinary://api_key:api_secret@cloud_name
 
  ### Lancer les migrations
 
