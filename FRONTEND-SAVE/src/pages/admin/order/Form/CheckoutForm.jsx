@@ -56,13 +56,9 @@ export default function CheckoutForm() {
             </div>
             <input type="text" placeholder="Phone" className="w-full p-2 border rounded" />
           </div>
-
-          {/* Shipping Method */}
           <div className="bg-gray-100 p-4 rounded text-sm">
             <p>Enter your shipping address to view available shipping options.</p>
           </div>
-
-          {/* Payment Information */}
           <div className="space-y-4">
             <h2 className="font-semibold">Payment</h2>
             <p className="text-xs text-gray-500">All transactions are secure and encrypted.</p>

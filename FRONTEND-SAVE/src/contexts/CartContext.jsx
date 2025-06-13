@@ -84,4 +84,6 @@ const prepareCheckout = () => {
   );
 };
 
-export const useCart = () => useContext(CartContext);
+
+export const useCart = () => useContext(CartContext);      
+
